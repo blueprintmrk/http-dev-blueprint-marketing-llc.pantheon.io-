@@ -13,6 +13,16 @@ url='https://github.com/pantheon-systems/rpm-wp-cli'
 vendor='Pantheon'
 description='wp-cli.phar release from GitHub, bundled in an rpm for use on Pantheon'
 
+if [ -n "$(git status --porcelain)" ]
+    then
+    echo >&2
+    echo "Error: uncommitted changes present. Please commit to continue." >&2
+    echo "Git commithash is included in rpm, so working tree must be clean to build." >&2
+    exit 1
+fi
+
+rm -f wp-cli*.rpm
+
 fpm -s dir -t rpm  \
     --name "${name}" \
     --version "${version}" \
