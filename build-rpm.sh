@@ -21,7 +21,7 @@ if [ -n "$(git status --porcelain)" ]
     exit 1
 fi
 
-rm -f wp-cli*.rpm
+rm -f *.rpm
 
 fpm -s dir -t rpm  \
     --name "${name}" \
