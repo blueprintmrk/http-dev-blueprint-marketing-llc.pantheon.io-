@@ -1,0 +1,20 @@
+
+dependencies:
+  pre:
+    - make deps
+
+test:
+  override:
+    - make all
+
+deployment:
+  production:
+    branch:
+      - master
+    commands:
+      - make prod_deploy
+  stage:
+    branch:
+      - stage
+    commands:
+      - make stage_deploy
