@@ -1,7 +1,7 @@
 #!/bin/sh
-# requires fpm (`gem install fpm`)
+# requires fpm and rpm (`gem install fpm rpm`)
 
-name='wp-cli'
+name='wp-cli-0'
 install_prefix='/opt/wp0'
 version=$(cat VERSION.txt)
 # Iteration number holds a sequence number and the git commit hash.
