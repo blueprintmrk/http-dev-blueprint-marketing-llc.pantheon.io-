@@ -4,7 +4,7 @@
 set -ex
 bin="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
 
-if [ "$#" -le 4 ]; then
+if [ "$#" -lt 4 ]; then
   echo "Usage: $0 channel rpm_dir build_num epoch [fedora_release]"
   exit 1
 fi
