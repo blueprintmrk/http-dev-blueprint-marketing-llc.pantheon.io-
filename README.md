@@ -10,8 +10,8 @@ This repository builds an RPM for wp-cli.
 
 The RPM filename built by this repository is:
 ```
-wp-cli-0-0.22.0-ts201603151156.git4602714.x86_64.rpm
-{ name }-{vers}-{ iteration #}.{ commit }.{arch}.rpm
+wp-cli-0-release-0.22.0-ts201603151156.git4602714.x86_64.rpm
+{ name }-{ type}-{vers}-{ iteration #}.{ commit }.{arch}.rpm
 ```
 The iteration number is the Circle build number for officiel builds, and a timestamp ("tsYYYMMDDHHmm") for locally-produced builds. The build script will refuse to make an RPM when there are uncommitted changes to the working tree, since the commit hash is included in the RPM name.
 

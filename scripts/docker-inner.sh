@@ -38,7 +38,7 @@ download_dir="$bin/../build"
 
 rm -rf $download_dir
 mkdir -p $download_dir
-wget https://github.com/wp-cli/wp-cli/releases/download/v${version}/wp-cli-${version}.phar --output-document=$download_dir/wp-cli-${version}.phar
+curl -L https://github.com/wp-cli/wp-cli/releases/download/v${version}/wp-cli-${version}.phar --output $download_dir/wp-cli-${version}.phar
 
 
 fpm -s dir -t rpm  \
@@ -59,3 +59,4 @@ if [ ! -d "$rpm_dir/$fedora_release/wp-cli" ]  ; then
 fi
 
 mv *.rpm $rpm_dir/$fedora_release/wp-cli/
+
