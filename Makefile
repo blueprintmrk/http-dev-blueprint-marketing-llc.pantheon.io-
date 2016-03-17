@@ -10,6 +10,9 @@ deps: fpm_deps
 .PHONY: with-native-tools
 with-native-tools: rpm-with-native-tools
 
+.PHONY: docker-deps
+docker-deps:
+
 .PHONY: rate_limit
 rate_limit:
 	curl -H "Authorization: token $$GITHUB_TOKEN" -XGET https://api.github.com/rate_limit
@@ -30,7 +33,7 @@ package_cloud_deps:
 
 .PHONY: rpm
 rpm:
-	sh scripts/docker-inner.sh
+	sh scripts/docker-outer.sh
 
 .PHONY: rpm-with-native-tools
 rpm-with-native-tools: fpm_deps
@@ -48,5 +51,5 @@ pkgcloud_stage:
 prod_deploy: package_cloud_deps rpm pkgcloud_stage pkgcloud_prod
 .PHONY: pkgcloud_prod
 pkgcloud_prod:
+	git push --tags
 	bash scripts/push_packagecloud.sh internal
-

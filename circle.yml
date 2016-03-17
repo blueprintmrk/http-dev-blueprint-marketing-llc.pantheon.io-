@@ -1,20 +1,28 @@
+general:
+  artifacts:
+    - "pkg"
+
+machine:
+  services:
+    - docker
 
 dependencies:
   pre:
-    - make deps
+    - make docker-deps
 
 test:
   override:
     - make all
 
 deployment:
-  production:
-    branch:
-      - master
-    commands:
-      - make prod_deploy
-  stage:
+  dev:
     branch:
       - stage
+      - yolo
+      - dev
     commands:
       - make stage_deploy
+  prod:
+    branch: master
+    commands:
+      - make prod_deploy
