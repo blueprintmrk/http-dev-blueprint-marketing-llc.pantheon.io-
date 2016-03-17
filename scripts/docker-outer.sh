@@ -27,7 +27,6 @@ epoch=$(date +%s)
 case $CIRCLE_BRANCH in
 "master")
   CHANNEL="release"
-  gittag
   ;;
 "stage")
   CHANNEL="stage"

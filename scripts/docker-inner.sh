@@ -4,15 +4,10 @@
 set -ex
 bin="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
 
-if [ "$#" -ne 4 ]; then
-  echo "specify a channel, rpm dir, build num, and revision"
+if [ "$#" -le 4 ]; then
+  echo "Usage: $0 channel rpm_dir build_num epoch [fedora_release]"
   exit 1
 fi
-
-channel=$1
-rpm_dir=$2
-build=$3
-epoch=$4
 
 if [ -n "$(git status --porcelain)" ]
     then
@@ -22,7 +17,16 @@ if [ -n "$(git status --porcelain)" ]
     exit 1
 fi
 
-fedora_release=$(rpm -q --queryformat '%{VERSION}\n' fedora-release)
+channel=$1
+rpm_dir=$2
+build=$3
+epoch=$4
+fedora_release=$5
+if [ -z "$fedora_release" ]
+then
+    fedora_release=$(rpm -q --queryformat '%{VERSION}\n' fedora-release)
+fi
+
 GITSHA=$(git log -1 --format="%h")
 name="wp-cli-0-$channel"
 

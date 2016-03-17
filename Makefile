@@ -7,8 +7,8 @@ all: rpm
 .PHONY: deps
 deps: fpm_deps
 
-.PHONY: native-tools
-native-tools: rpm-with-native-tools
+.PHONY: with-native-tools
+with-native-tools: rpm-with-native-tools
 
 .PHONY: rate_limit
 rate_limit:

@@ -19,7 +19,6 @@ BRANCH=$(git rev-parse --abbrev-ref HEAD)
 case $BRANCH in
 "master")
   CHANNEL="release"
-  gittag
   ;;
 "stage")
   CHANNEL="stage"
