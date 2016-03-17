@@ -28,15 +28,16 @@ then
 fi
 
 GITSHA=$(git log -1 --format="%h")
-name="wp-cli-0-$channel"
+shortname="wp-cli-0"
+name="$shortname-$channel"
 
 version=$(cat $bin/../VERSION.txt)
 iteration=${epoch}.${GITSHA}
 arch='x86_64'
-url="https://github.com/pantheon-systems/${name}"
+url="https://github.com/pantheon-systems/${shortname}"
 vendor='Pantheon'
 description='wp-cli: Pantheon rpm containing commandline tool for WordPress'
-install_prefix="/opt/pantheon/$name"
+install_prefix="/opt/pantheon/$shortname"
 
 download_dir="$bin/../build"
 
