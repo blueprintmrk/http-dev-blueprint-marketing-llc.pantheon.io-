@@ -11,7 +11,7 @@ BUILD_VERSIONS=${BUILD_VERSIONS:-22}
 echo "==> Running RPM builds for these Fedora version(s): $BUILD_VERSIONS"
 
 RUN_ARGS="--rm"
-if [[ -n "$CIRCLECI"  ]] ; then
+if [ -n "$CIRCLECI"  ] ; then
   RUN_ARGS=""
 fi
 
