@@ -27,10 +27,6 @@ fpm_deps:
 	-which rpm &>/dev/null || (which brew &>/dev/null && brew install rpm)
 	-which fpm &>/dev/null || gem install fpm
 
-.PHONY: package_cloud_deps
-package_cloud_deps:
-	which package_cloud &>/dev/null || gem install package_cloud
-
 .PHONY: rpm
 rpm:
 	sh scripts/docker-outer.sh
@@ -38,18 +34,3 @@ rpm:
 .PHONY: rpm-with-native-tools
 rpm-with-native-tools: fpm_deps
 	sh scripts/dockerless.sh
-
-# for now only stage gets the artifact deplooys, as I see this being the inevitable default target.
-# prod deploy should be replaced with a service/trigger from slack
-.PHONY: stage_deploy
-stage_deploy: package_cloud_deps rpm pkgcloud_stage
-.PHONY: pkgcloud_stage
-pkgcloud_stage:
-	bash scripts/push_packagecloud.sh internal-staging
-
-.PHONY: prod_deploy
-prod_deploy: package_cloud_deps rpm pkgcloud_stage pkgcloud_prod
-.PHONY: pkgcloud_prod
-pkgcloud_prod:
-	git push --tags
-	bash scripts/push_packagecloud.sh internal

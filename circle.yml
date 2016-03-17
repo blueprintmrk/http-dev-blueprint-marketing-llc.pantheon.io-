@@ -21,8 +21,11 @@ deployment:
       - yolo
       - dev
     commands:
-      - make stage_deploy
+      - gem install package_cloud
+      - bash scripts/push_packagecloud.sh internal-staging
   prod:
     branch: master
     commands:
-      - make prod_deploy
+      - gem install package_cloud
+      - git push --tags
+      - bash scripts/push_packagecloud.sh internal
