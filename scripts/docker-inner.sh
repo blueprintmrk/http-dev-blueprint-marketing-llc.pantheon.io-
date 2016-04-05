@@ -9,14 +9,6 @@ if [ "$#" -lt 4 ]; then
   exit 1
 fi
 
-if [ -n "$(git status --porcelain)" ]
-    then
-    echo >&2
-    echo "Error: uncommitted changes present. Please commit to continue." >&2
-    echo "Git commithash is included in rpm, so working tree must be clean to build." >&2
-    exit 1
-fi
-
 channel=$1
 rpm_dir=$2
 build=$3
@@ -27,12 +19,12 @@ then
     fedora_release=$(rpm -q --queryformat '%{VERSION}\n' fedora-release)
 fi
 
-GITSHA=$(git log -1 --format="%h")
 shortname="wp-cli-0.x"
 name="$shortname-$channel"
+target_dir="$rpm_dir/$fedora_release/wp-cli"
 
 version=$(cat $bin/../VERSION.txt)
-iteration=${epoch}.${GITSHA}
+iteration=${epoch}
 arch='x86_64'
 url="https://github.com/pantheon-systems/${shortname}"
 vendor='Pantheon'
@@ -41,15 +33,38 @@ install_prefix="/opt/pantheon/$shortname"
 
 download_dir="$bin/../build"
 
+# Add the git SHA hash to the rpm build if the local working copy is clean
+if [ -z "$(git status --porcelain)" ]
+then
+    GITSHA=$(git log -1 --format="%h")
+    iteration=${iteration}.${GITSHA}
+else
+    # Allow non-clean builds in dev mode; for anything else, fail if there
+    # are uncommitted changes.
+    if [ "$channel" != "dev" ]
+    then
+        echo >&2
+        echo "Error: uncommitted changes present. Please commit to continue." >&2
+        echo "Git commithash is included in rpm, so working tree must be clean to build." >&2
+        exit 1
+    fi
+fi
+
 rm -rf $download_dir
 mkdir -p $download_dir
 curl -L https://github.com/wp-cli/wp-cli/releases/download/v${version}/wp-cli-${version}.phar --output $download_dir/wp-cli.phar
 
+if [ -d "$rpm_dir" ]  ; then
+  rm -rf "$rpm_dir"
+fi
+mkdir -p "$target_dir"
 
 fpm -s dir -t rpm  \
+    --package "$target_dir/${name}-${version}-${iteration}.${arch}.rpm" \
     --name "${name}" \
     --version "${version}" \
     --iteration "${iteration}" \
+    --epoch "${epoch}" \
     --architecture "${arch}" \
     --url "${url}" \
     --vendor "${vendor}" \
@@ -58,10 +73,4 @@ fpm -s dir -t rpm  \
     -C build \
     wp-cli.phar
 
-
-if [ ! -d "$rpm_dir/$fedora_release/wp-cli" ]  ; then
-  mkdir -p $rpm_dir/$fedora_release/wp-cli
-fi
-
-mv *.rpm $rpm_dir/$fedora_release/wp-cli/
 

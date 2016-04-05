@@ -9,9 +9,6 @@ pkg_dir="$bin/../pkg"
 # app servers older than f22.
 BUILD_VERSIONS=${BUILD_VERSIONS:-22}
 
-rm -rf "$pkg_dir"
-mkdir -p "$pkg_dir"
-
 # epoch to use for -revision
 epoch=$(date +%s)
 

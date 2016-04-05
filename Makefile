@@ -4,6 +4,10 @@ VERSION := $(shell cat VERSION.txt)
 .PHONY: all
 all: rpm
 
+.PHONY: test
+test:
+	tests/confirm-rpm.sh
+
 .PHONY: deps
 deps: fpm_deps
 
