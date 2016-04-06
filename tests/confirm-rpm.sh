@@ -43,9 +43,9 @@ then
 fi
 
 release=$(rpm -qp --queryformat '%{RELEASE}\n' "$pkgDir/$rpmName")
-if [ -z "$(echo "$release" | grep '^[0-9]*$' | grep '^..........$')" ]
+if [ -z "$(echo "$release" | grep '^\([0-9]\{10\}\.[0-9a-f]\{7\}\|[0-9]\{10\}\)$')" ]
 then
-  echo "Release $release does not look like an epoch"
+  echo "Release $release does not match our expected format"
   exit 1
 fi
 
