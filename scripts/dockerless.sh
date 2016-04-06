@@ -2,7 +2,7 @@
 # Build an RPM without docker, using native tools
 #
 bin="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
-pkg_dir="$bin/../pkg"
+rpm_dir="$bin/../pkg"
 
 # Which fedora distros to build this rpm for
 # wp-cli only runs on App servers; we do not have any

@@ -52,7 +52,8 @@ fi
 
 rm -rf $download_dir
 mkdir -p $download_dir
-curl -L https://github.com/wp-cli/wp-cli/releases/download/v${version}/wp-cli-${version}.phar --output $download_dir/wp-cli.phar
+curl -L -f https://github.com/wp-cli/wp-cli/releases/download/v${version}/wp-cli-${version}.phar --output $download_dir/wp-cli.phar
+[ $? == 0 ] || (echo "Download failed!"; exit 1)
 
 mkdir -p "$target_dir"
 
