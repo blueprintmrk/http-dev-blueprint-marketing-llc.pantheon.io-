@@ -27,5 +27,4 @@ deployment:
     branch: master
     commands:
       - gem install package_cloud
-      - git push --tags
       - bash scripts/push_packagecloud.sh internal
