@@ -12,6 +12,10 @@ BUILD_VERSIONS=${BUILD_VERSIONS:-22}
 # epoch to use for -revision
 epoch=$(date +%s)
 
+if [ -d "$rpm_dir" ]  ; then
+  rm -rf "$rpm_dir"
+fi
+
 for fedora_release in $BUILD_VERSIONS; do
-    $bin/docker-inner.sh dev "$pkg_dir" 0 $epoch $fedora_release
+    $bin/docker-inner.sh dev "$rpm_dir" 0 $epoch $fedora_release
 done

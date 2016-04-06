@@ -39,13 +39,18 @@ case $CIRCLE_BRANCH in
   ;;
 esac
 
+rpm_dir=$inner_mount/pkg
+if [ -d "$rpm_dir" ]  ; then
+  rm -rf "$rpm_dir"
+fi
+
 for ver in $BUILD_VERSIONS; do
     echo "==> Building wp-cli rpm for fedora $ver "
 
     build_image=quay.io/getpantheon/rpmbuild-fedora:${ver}
     $docker pull $build_image
 
-    exec_cmd="$inner_mount/scripts/docker-inner.sh $CHANNEL $inner_mount/pkg $CIRCLE_BUILD_NUM $epoch"
+    exec_cmd="$inner_mount/scripts/docker-inner.sh $CHANNEL $rpm_dir $CIRCLE_BUILD_NUM $epoch"
     if [ -n "$BUILD_DEBUG" ] ; then
       RUN_ARGS="$RUN_ARGS -ti "
       exec_cmd="/bin/bash"

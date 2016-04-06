@@ -54,9 +54,6 @@ rm -rf $download_dir
 mkdir -p $download_dir
 curl -L https://github.com/wp-cli/wp-cli/releases/download/v${version}/wp-cli-${version}.phar --output $download_dir/wp-cli.phar
 
-if [ -d "$rpm_dir" ]  ; then
-  rm -rf "$rpm_dir"
-fi
 mkdir -p "$target_dir"
 
 fpm -s dir -t rpm  \
