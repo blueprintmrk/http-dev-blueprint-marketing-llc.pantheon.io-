@@ -13,7 +13,6 @@ dependencies:
 test:
   override:
     - make all
-    - make test
 
 deployment:
   dev:

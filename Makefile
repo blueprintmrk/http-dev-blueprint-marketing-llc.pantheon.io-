@@ -5,7 +5,7 @@ VERSION := $(shell cat VERSION.txt)
 all: rpm
 
 .PHONY: test
-test:
+test: rpm_deps
 	tests/confirm-rpm.sh
 
 .PHONY: deps
@@ -25,10 +25,13 @@ rate_limit:
 validate_circle:
 	ruby -r yaml -e 'puts YAML.dump(STDIN.read)' < circle.yml
 
-.PHONY: fpm_deps
-fpm_deps:
+.PHONY: rpm_deps
+rpm_deps:
 	-which rpm &>/dev/null || (which apt-get &>/dev/null && sudo apt-get install rpm)
 	-which rpm &>/dev/null || (which brew &>/dev/null && brew install rpm)
+
+.PHONY: fpm_deps
+fpm_deps: rpm_deps
 	-which fpm &>/dev/null || gem install fpm
 
 .PHONY: rpm
