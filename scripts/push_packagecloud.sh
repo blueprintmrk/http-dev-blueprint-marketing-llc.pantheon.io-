@@ -2,7 +2,7 @@
 #
 #  wrapper for pushing rpm's up to both repos
 #
-repo_versions=(22)
+repo_versions=(20 22)
 
 if [ -z "$(which package_cloud)" ]; then
   echo "Error no 'package_cloud' found in PATH"

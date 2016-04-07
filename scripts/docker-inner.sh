@@ -50,6 +50,7 @@ else
     fi
 fi
 
+# We wastefully re-download the same file for each version of Fedora. Oh well.
 rm -rf $download_dir
 mkdir -p $download_dir
 curl -L -f https://github.com/wp-cli/wp-cli/releases/download/v${version}/wp-cli-${version}.phar --output $download_dir/wp-cli.phar
@@ -72,4 +73,4 @@ fpm -s dir -t rpm  \
     wp-cli.phar
 
 # Finish up by running our tests.
-$bin/../tests/confirm-rpm.sh
+$bin/../tests/confirm-rpm.sh $fedora_release

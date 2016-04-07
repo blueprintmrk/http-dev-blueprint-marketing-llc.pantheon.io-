@@ -1,9 +1,11 @@
 #!/bin/bash
 # confirm-rpm.sh
 
+fedora_release=$1
+
 expectedName=wp-cli-0.x
 expectedContents=/opt/pantheon/wp-cli-0.x/wp-cli.phar
-pkgDir="pkg/22/wp-cli"
+pkgDir="pkg/$fedora_release/wp-cli"
 if [ ! -d "$pkgDir" ]
 then
   echo 'Package directory not found.'
