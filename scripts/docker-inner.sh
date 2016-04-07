@@ -73,4 +73,4 @@ fpm -s dir -t rpm  \
     wp-cli.phar
 
 # Finish up by running our tests.
-$bin/../tests/confirm-rpm.sh
+$bin/../tests/confirm-rpm.sh $fedora_release

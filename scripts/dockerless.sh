@@ -18,4 +18,8 @@ fi
 
 for fedora_release in $BUILD_VERSIONS; do
     $bin/docker-inner.sh dev "$rpm_dir" 0 $epoch $fedora_release
+    if [ $? != 0 ]
+    then
+      exit 1
+    fi
 done
