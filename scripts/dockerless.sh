@@ -7,7 +7,7 @@ rpm_dir="$bin/../pkg"
 # Which fedora distros to build this rpm for
 # wp-cli only runs on App servers; we do not have any
 # app servers older than f22.
-BUILD_VERSIONS=${BUILD_VERSIONS:-22}
+BUILD_VERSIONS=${BUILD_VERSIONS:-20 22}
 
 # epoch to use for -revision
 epoch=$(date +%s)
